@@ -23,12 +23,11 @@
 namespace sict {
 
 	char Utilities::delimiter;
+	size_t Utilities::fieldWidth;
 
 	// custom constructor to initialize member values
 	//
-	Utilities::Utilities() : fieldWidth(-1)
-	{
-	}
+	Utilities::Utilities() {}
 
 	// method to extract token and increase current position
 	//
@@ -36,9 +35,8 @@ namespace sict {
 	{
 		std::string tmp = str.substr(next_pos);
 		std::string token = tmp.substr(0, tmp.find(delimiter));
-
-		if (token.length() > fieldWidth)
-			fieldWidth = token.length();
+		
+		//token length can't be checked here or field width incorrect
 
 		next_pos += tmp.find(delimiter) + 1;
 

@@ -30,7 +30,6 @@ namespace sict {
 	//
 	ItemSet::ItemSet(const std::string& str)
 	{
-		Utilities util;
 		quantity = 0;
 		serialNumber = 0;
 		name = std::string();
@@ -48,6 +47,10 @@ namespace sict {
 		extractInt(serialNumber, pos);
 		extractInt(quantity, pos);
 		description = util.extractToken(str, pos);
+
+		if (name.length() > util.getFieldWidth())
+			util.setFieldWidth(name.length());
+		
 	}
 	
 	// query to get name of ItemSet object
@@ -84,9 +87,29 @@ namespace sict {
 	//
 	void ItemSet::display(std::ostream& os, bool full) const
 	{
-		os << std::setw(12) << std::left << name << " [" << std::setfill('0')
-			<< serialNumber << "] Quantity " << std::setw(3) << std::setfill(' ')
-			<< quantity << " Description: " << description << std::endl;
+		if(full)
+		os << std::setw(util.getFieldWidth()) << std::left << name << " [" 
+			<< std::setfill('0') << serialNumber << "] Quantity " 
+			<< std::setw(3) << std::setfill(' ') << quantity 
+			<< " Description: " << description << std::endl;
+	}
+
+	// move constructor for STL container
+	//
+	ItemSet::ItemSet(ItemSet&& src) noexcept
+	{
+		if (this != &src)
+		{
+			name = src.name;
+			description = src.description;
+			serialNumber = src.serialNumber;
+			quantity = src.quantity;
+
+			src.name = { "" };
+			src.description = { "" };
+			src.serialNumber = { 0 };
+			src.quantity = { 0 };
+		}
 	}
 
 }

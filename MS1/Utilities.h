@@ -25,7 +25,7 @@
 namespace sict {
 	class Utilities {
 		static char delimiter;
-		size_t fieldWidth;
+		static size_t fieldWidth;
 	public:
 		Utilities();
 		const std::string extractToken(const std::string& str, size_t& next_pos);

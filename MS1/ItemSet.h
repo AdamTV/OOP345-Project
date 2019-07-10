@@ -21,6 +21,7 @@
  */
 
 #include <string>
+#include "Utilities.h"
 
 namespace sict {
 	class ItemSet {
@@ -28,6 +29,7 @@ namespace sict {
 		std::string description;
 		unsigned int serialNumber;
 		unsigned int quantity;
+		Utilities util;
 	public:
 		ItemSet(const std::string& str);
 		const std::string& getName() const;
@@ -35,6 +37,7 @@ namespace sict {
 		const unsigned int getQuantity() const;
 		ItemSet& operator--();
 		void display(std::ostream& os, bool full) const;
+		ItemSet(ItemSet&& src) noexcept;
 		ItemSet& operator=(ItemSet&&) = delete;
 		ItemSet& operator=(const ItemSet&) = delete;
 		ItemSet(const ItemSet&) = delete;
