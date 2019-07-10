@@ -35,6 +35,9 @@ namespace sict {
 		const unsigned int getQuantity() const;
 		ItemSet& operator--();
 		void display(std::ostream& os, bool full) const;
+		ItemSet& operator=(ItemSet&&) = delete;
+		ItemSet& operator=(const ItemSet&) = delete;
+		ItemSet(const ItemSet&) = delete;
 	};
 }
 
