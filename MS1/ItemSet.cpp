@@ -25,6 +25,9 @@
 #include "Utilities.h"
 
 namespace sict {
+
+	// custom constructor to initialize member values
+	//
 	ItemSet::ItemSet(const std::string& str)
 	{
 		Utilities util;
@@ -46,24 +49,39 @@ namespace sict {
 
 		description = util.extractToken(str, pos);
 	}
+	
+	// query to get name of ItemSet object
+	//
 	const std::string& ItemSet::getName() const
 	{
 		return name;
 	}
+
+	// query to get serial number of ItemSet object
+	//
 	const unsigned int ItemSet::getSerialNumber() const
 	{
 		return serialNumber;
 	}
+
+	// query to get quantity of ItemSet object
+	//
 	const unsigned int ItemSet::getQuantity() const
 	{
 		return quantity;
 	}
+
+	// operator to manually change data members
+	//
 	ItemSet& ItemSet::operator--()
 	{
 		quantity--;
 		serialNumber++;
 		return *this;
 	}
+
+	// query to display ItemSet object to any ostream&
+	//
 	void ItemSet::display(std::ostream& os, bool full) const
 	{
 		os << std::setw(12) << std::left << name << " [" << std::setfill('0')

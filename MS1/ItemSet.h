@@ -15,8 +15,7 @@
 
  /*
   ============================================================================
-  Description : ItemSet module for managing the stock inventory of a
-				particular item.
+  Description : ItemSet module for managing the stock inventory of a particular item.
   ============================================================================
  */
 
