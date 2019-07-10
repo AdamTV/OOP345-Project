@@ -2,21 +2,21 @@
 #define SICT_UTILITIES_H
 /*
  ============================================================================
- Name        : Utilities.h
- Author      : Adam Stinziani
- Email       : astinziani@myseneca.ca
- Student #   : 124 521 188
- Course Code : OOP345
- Section     : SCC
- Date        : 2019-07-03
- Project	 : Milestone 1
+ Name          : Utilities.h
+ Author        : Adam Stinziani
+ Email         : astinziani@myseneca.ca
+ Student #     : 124 521 188
+ Course Code   : OOP345
+ Section       : SCC
+ Date Created  : 2019-07-03
+ Last Modified : 2019-07-10
+ Project	   : Milestone 1
  ============================================================================
  */
 
  /*
   ============================================================================
-  Description : Utilities module that contains functionality which is common
-				across the system.
+  Description : Utilities module with functionality common across system.
   ============================================================================
  */
 

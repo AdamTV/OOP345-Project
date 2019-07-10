@@ -2,20 +2,21 @@
 #define SICT_ITEMSET_H
 /*
  ============================================================================
- Name        : ItemSet.h
- Author      : Adam Stinziani
- Email       : astinziani@myseneca.ca
- Student #   : 124 521 188
- Course Code : OOP345
- Section     : SCC
- Date        : 2019-07-03
- Project	 : Milestone 1
+ Name          : ItemSet.h
+ Author        : Adam Stinziani
+ Email         : astinziani@myseneca.ca
+ Student #     : 124 521 188
+ Course Code   : OOP345
+ Section       : SCC
+ Date Created  : 2019-07-03
+ Last Modified : 2019-07-10
+ Project	   : Milestone 1
  ============================================================================
  */
 
  /*
   ============================================================================
-  Description : ItemSet module for managing the stock inventory of a particular item.
+  Description  : ItemSet module for managing stock inventory of certain item.
   ============================================================================
  */
 

@@ -1,20 +1,20 @@
 /*
  ============================================================================
- Name        : ItemSet.cpp
- Author      : Adam Stinziani
- Email       : astinziani@myseneca.ca
- Student #   : 124 521 188
- Course Code : OOP345
- Section     : SCC
- Date        : 2019-07-03
- Project	 : Milestone 1
+ Name          : ItemSet.cpp
+ Author        : Adam Stinziani
+ Email         : astinziani@myseneca.ca
+ Student #     : 124 521 188
+ Course Code   : OOP345
+ Section       : SCC
+ Date Created  : 2019-07-03
+ Last Modified : 2019-07-10
+ Project	   : Milestone 1
  ============================================================================
  */
 
  /*
   ============================================================================
-  Description : ItemSet module for managing the stock inventory of a
-				particular item.
+  Description  : ItemSet module for managing stock inventory of certain item.
   ============================================================================
  */
 
@@ -36,17 +36,17 @@ namespace sict {
 		name = std::string();
 		size_t pos = 0;
 
+		// lambda to extract integer with extractToken
+		//
+		auto extractInt = [&](unsigned int& num, size_t& pos) {
+			std::string sn = util.extractToken(str, pos);
+			std::stringstream s(sn);
+			s >> num;
+		};
+
 		name = util.extractToken(str, pos);
-
-		std::string sn = util.extractToken(str, pos);
-		std::stringstream s(sn);
-		s >> serialNumber;
-
-
-		std::string q = util.extractToken(str, pos);
-		std::stringstream s2(q);
-		s2 >> quantity;
-
+		extractInt(serialNumber, pos);
+		extractInt(quantity, pos);
 		description = util.extractToken(str, pos);
 	}
 	
@@ -87,6 +87,6 @@ namespace sict {
 		os << std::setw(12) << std::left << name << " [" << std::setfill('0')
 			<< serialNumber << "] Quantity " << std::setw(3) << std::setfill(' ')
 			<< quantity << " Description: " << description << std::endl;
-		//os << name << " " << serialNumber << " " << quantity << " " << description << std::endl;
 	}
+
 }
