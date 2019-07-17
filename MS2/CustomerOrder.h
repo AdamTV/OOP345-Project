@@ -28,9 +28,9 @@
 namespace sict {
 	class CustomerOrder {
 		std::string custName, prodName;
-		//const struct ItemSet {
+		//struct ItemSet {
 		//	bool fullfilled = false;
-		//}ItemInfo[];
+		//};
 	public:
 		CustomerOrder();
 		CustomerOrder(const std::string& str);
