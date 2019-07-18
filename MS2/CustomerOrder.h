@@ -27,16 +27,21 @@
 
 namespace sict {
 	class CustomerOrder {
+		Utilities util;
 		std::string custName, prodName;
-		//struct ItemSet {
-		//	bool fullfilled = false;
-		//};
+		unsigned int currentNumItems;
+		struct ItemInfo {
+			bool fullfilled = false;
+			std::string itemName;
+			unsigned int itemNumber;
+		};
+		ItemInfo* currentItems;
 	public:
 		CustomerOrder();
 		CustomerOrder(const std::string& str);
 		~CustomerOrder();
-		CustomerOrder(CustomerOrder&&);
-		CustomerOrder& operator=(CustomerOrder&&);
+		CustomerOrder(CustomerOrder&&) noexcept;
+		CustomerOrder& operator=(CustomerOrder&&) noexcept;
 		void fillItem(ItemSet& item, std::ostream& os);
 		bool isFilled() const;
 		bool isItemFilled(const std::string& item) const;

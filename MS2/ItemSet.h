@@ -31,6 +31,7 @@ namespace sict {
 		unsigned int quantity;
 		Utilities util;
 	public:
+		ItemSet();
 		ItemSet(const std::string& str);
 		const std::string& getName() const;
 		const unsigned int getSerialNumber() const;
@@ -38,6 +39,7 @@ namespace sict {
 		ItemSet& operator--();
 		void display(std::ostream& os, bool full) const;
 		ItemSet(ItemSet&& src) noexcept;
+
 		ItemSet& operator=(ItemSet&&) = delete;
 		ItemSet& operator=(const ItemSet&) = delete;
 		ItemSet(const ItemSet&) = delete;

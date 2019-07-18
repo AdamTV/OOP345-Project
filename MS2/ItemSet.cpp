@@ -25,7 +25,14 @@
 #include "Utilities.h"
 
 namespace sict {
-
+	ItemSet::ItemSet()
+	{
+		quantity = 0;
+		serialNumber = 0;
+		name = std::string();
+		description = std::string();
+		util = Utilities();
+	}
 	// custom constructor to initialize member values
 	//
 	ItemSet::ItemSet(const std::string& str)
@@ -43,14 +50,15 @@ namespace sict {
 			s >> num;
 		};
 
-		name = util.extractToken(str, pos);
-		extractInt(serialNumber, pos);
-		extractInt(quantity, pos);
-		description = util.extractToken(str, pos);
+		if (str.length() > 0) {
+			name = util.extractToken(str, pos);
+			extractInt(serialNumber, pos);
+			extractInt(quantity, pos);
+			description = util.extractToken(str, pos);
 
-		if (name.length() > util.getFieldWidth())
-			util.setFieldWidth(name.length());
-		
+			if (name.length() > util.getFieldWidth())
+				util.setFieldWidth(name.length());
+		}
 	}
 	
 	// query to get name of ItemSet object
