@@ -24,6 +24,9 @@
 #include "CustomerOrder.h"
 
 namespace sict {
+
+	// default constructor to set safe empty state
+	//
 	CustomerOrder::CustomerOrder()
 	{
 		currentItems = nullptr;
@@ -31,6 +34,9 @@ namespace sict {
 		currentNumItems = 0;
 		util = Utilities();
 	}
+
+	// custom constructor to set member values
+	//
 	CustomerOrder::CustomerOrder(const std::string& str)
 	{
 		std::vector<std::string> items;
@@ -55,16 +61,25 @@ namespace sict {
 			currentItems[i].fullfilled = false;
 		}
 	}
+
+	// destructor to deallocate any allocated memory
+	//
 	CustomerOrder::~CustomerOrder()
 	{
 		delete[] currentItems;
 		currentItems = nullptr;
 	}
+
+	// move constructor to move an object near end of lifetime
+	//
 	CustomerOrder::CustomerOrder(CustomerOrder&& src) noexcept
 	{
 		currentItems = nullptr;
 		*this = std::move(src);
 	}
+
+	// move operator to move object near end of lifetime
+	//
 	CustomerOrder& CustomerOrder::operator=(CustomerOrder&& src) noexcept
 	{
 		if (this != &src) {
@@ -80,6 +95,9 @@ namespace sict {
 		}
 		return *this;
 	}
+
+	// checks each item request against item and handles accordingly
+	//
 	void CustomerOrder::fillItem(ItemSet& item, std::ostream& os)
 	{
 		if (item.getQuantity() != 0) {
@@ -104,6 +122,9 @@ namespace sict {
 				<< item.getName() << "][" << item.getSerialNumber() << "] out of stock\n";
 		}
 	}
+
+	// checks if all item requests are filled
+	//
 	bool CustomerOrder::isFilled() const
 	{
 		bool filled = true;
@@ -113,6 +134,9 @@ namespace sict {
 		}
 		return filled;
 	}
+
+	// checks if all item requests of certain name have been filled
+	//
 	bool CustomerOrder::isItemFilled(const std::string& item) const
 	{
 		bool filled = true;
@@ -122,10 +146,16 @@ namespace sict {
 		}
 		return filled;
 	}
+
+	// concatenate name of customer and their product
+	//
 	std::string CustomerOrder::getNameProduct() const
 	{
 		return custName + " [" + prodName + "]";
 	}
+
+	// display customer order object to any ostream&
+	//
 	void CustomerOrder::display(std::ostream& os, bool showDetail)
 	{
 		auto FW = std::setw(util.getFieldWidth() + 1);
@@ -135,5 +165,13 @@ namespace sict {
 				os << FW << " " << currentItems[i].itemName << '\n';
 			}
 		}
+		else {
+			os << FW << custName << '[' << prodName << "]\n";
+			for (unsigned int i = 0; i < currentNumItems; i++) {
+				os << FW << " " << '[' << currentItems[i].itemNumber << "] " 
+					<< currentItems[i].itemName << '-' << currentItems[i].fullfilled ? "Filled" : "Not Filled";
+			}
+		}
 	}
+
 }
