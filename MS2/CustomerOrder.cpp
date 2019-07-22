@@ -169,7 +169,7 @@ namespace sict {
 			os << FW << custName << '[' << prodName << "]\n";
 			for (unsigned int i = 0; i < currentNumItems; i++) {
 				os << FW << " " << '[' << currentItems[i].itemNumber << "] " 
-					<< currentItems[i].itemName << '-' << currentItems[i].fullfilled ? "Filled" : "Not Filled";
+					<< currentItems[i].itemName << '-' << (currentItems[i].fullfilled ? "Filled" : "Not Filled");
 			}
 		}
 	}
