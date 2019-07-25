@@ -7,8 +7,8 @@
  Course Code   : OOP345
  Section       : SCC
  Date Created  : 2019-07-16
- Last Modified : 2019-07-16
- Project	   : Milestone 2
+ Last Modified : 2019-07-25
+ Project	   : Milestone 3
  ============================================================================
  */
 

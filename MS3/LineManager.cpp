@@ -1,14 +1,12 @@
-#ifndef SICT_UTILITIES_H
-#define SICT_UTILITIES_H
 /*
  ============================================================================
- Name          : Utilities.h
+ Name          : LineManager.cpp
  Author        : Adam Stinziani
  Email         : astinziani@myseneca.ca
  Student #     : 124 521 188
  Course Code   : OOP345
  Section       : SCC
- Date Created  : 2019-07-03
+ Date Created  : 2019-07-16
  Last Modified : 2019-07-25
  Project	   : Milestone 3
  ============================================================================
@@ -16,25 +14,23 @@
 
  /*
   ============================================================================
-  Description : Utilities module with functionality common across system.
+  Description  : Line manager module for processing orders in assembly line
   ============================================================================
  */
 
-#include <string>
+#include "LineManager.h"
 
 namespace sict {
-	class Utilities {
-		static char delimiter;
-		static size_t fieldWidth;
-	public:
-		Utilities();
-		const std::string extractToken(const std::string& str, size_t& next_pos);
-		const char getDelimiter() const;
-		size_t getFieldWidth() const;
-		static void setDelimiter(const char d);
-		void setFieldWidth(size_t);
-	};
+	LineManager::LineManager(std::vector<Station*>& adrs, std::vector<size_t>
+		idxs, std::vector<CustomerOrder> ords, size_t aidx, std::ostream& os)
+	{
+
+	}
+	void LineManager::display(std::ostream& os) const
+	{
+	}
+	bool LineManager::run(std::ostream& os)
+	{
+		return false;
+	}
 }
-
-#endif // !SICT_UTILITIES_H
-

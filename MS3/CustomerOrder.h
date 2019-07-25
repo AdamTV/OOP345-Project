@@ -9,8 +9,8 @@
  Course Code   : OOP345
  Section       : SCC
  Date Created  : 2019-07-16
- Last Modified : 2019-07-16
- Project	   : Milestone 2
+ Last Modified : 2019-07-25
+ Project	   : Milestone 3
  ============================================================================
  */
 
@@ -48,8 +48,8 @@ namespace sict {
 		std::string getNameProduct() const;
 		void display(std::ostream& os, bool showDetail = false);
 
-		CustomerOrder(const CustomerOrder&) = delete;
-		CustomerOrder& operator=(const CustomerOrder&) = delete;
+		//CustomerOrder(const CustomerOrder&) = delete;
+		//CustomerOrder& operator=(const CustomerOrder&) = delete;
 	};
 }
 #endif // !SICT_CUSTOMER_ORDER_H

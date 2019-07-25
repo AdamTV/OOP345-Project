@@ -9,8 +9,8 @@
  Course Code   : OOP345
  Section       : SCC
  Date Created  : 2019-07-03
- Last Modified : 2019-07-10
- Project	   : Milestone 1
+ Last Modified : 2019-07-25
+ Project	   : Milestone 3
  ============================================================================
  */
 
@@ -40,9 +40,9 @@ namespace sict {
 		void display(std::ostream& os, bool full) const;
 		ItemSet(ItemSet&& src) noexcept;
 
-		ItemSet& operator=(ItemSet&&) = delete;
-		ItemSet& operator=(const ItemSet&) = delete;
-		ItemSet(const ItemSet&) = delete;
+		//ItemSet& operator=(ItemSet&&) = delete;
+		//ItemSet& operator=(const ItemSet&) = delete;
+		//ItemSet(const ItemSet&) = delete;
 	};
 }
 
