@@ -23,9 +23,14 @@
 
 namespace sict {
 	class LineManager {
+	private:
+		std::vector<Station*> addresses;
+		std::vector<size_t> indexes;
+		std::vector<CustomerOrder> orders;
+		size_t start, end, size;
 	public:
-		LineManager(std::vector<Station*>& adr,std::vector<size_t> 
-			idx, std::vector<CustomerOrder>, size_t aidx, std::ostream& os);
+		LineManager(std::vector<Station*>& adr,std::vector<size_t>&
+			idx, std::vector<CustomerOrder>&, size_t& aidx, std::ostream& os);
 		void display(std::ostream& os) const;
 		bool run(std::ostream& os);
 	};

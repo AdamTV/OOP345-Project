@@ -18,24 +18,22 @@
   ============================================================================
  */
 
+#include <iostream>
 #include "Station.h"
 
 namespace sict {
 	Station::Station(const std::string& str) : items(ItemSet(str))
 	{
-		name = getName();
+		
 	}
 	void Station::display(std::ostream& os) const
 	{
-		items.display(os, false);
+		items.display(os, true);
 	}
 	void Station::fill(std::ostream& os)
 	{
-		if (!custOrders.empty()) {
-			//int size = custOrders.size() - 1;
-			//CustomerOrder& theOrder = std::move(custOrders[size]);
-			//theOrder.fillItem(items, os);
-		}
+		if (!custOrders.empty())
+			custOrders.back().fillItem(items, os);
 	}
 	const std::string& Station::getName() const
 	{
@@ -63,18 +61,17 @@ namespace sict {
 	bool Station::pop(CustomerOrder& ready)
 	{
 		bool filled = false;
-		//CustomerOrder& theOrder = custOrders.front();
-
-		custOrders.pop();
-		//ready = std::move(theOrder);
-
-		if (ready.isFilled())
-			filled = true;
-
+		if (!custOrders.empty()) {
+			ready = std::move(custOrders.front());
+			filled = ready.isItemFilled(getName());
+			custOrders.pop();
+		}
 		return filled;
 	}
 	void Station::validate(std::ostream& os) const
 	{
-		items.display(os, false);
+		os << " getName(): " << items.getName() << std::endl;
+		os << " getSerialNumber(): " << items.getSerialNumber() << std::endl;
+		os << " getQuantity(): " << items.getQuantity() << std::endl;
 	}
 }

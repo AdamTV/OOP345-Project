@@ -47,9 +47,12 @@ namespace sict {
 		bool isItemFilled(const std::string& item) const;
 		std::string getNameProduct() const;
 		void display(std::ostream& os, bool showDetail = false);
-
-		//CustomerOrder(const CustomerOrder&) = delete;
-		//CustomerOrder& operator=(const CustomerOrder&) = delete;
+		ItemInfo lastItem() { return currentItems[currentNumItems - 1]; }
+		std::string& getItemName() { return currentItems->itemName; }
+		CustomerOrder(const CustomerOrder&) {
+		custName = std::string();
+		};
+		CustomerOrder& operator=(const CustomerOrder&) = delete;
 	};
 }
 #endif // !SICT_CUSTOMER_ORDER_H

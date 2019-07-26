@@ -39,11 +39,12 @@ namespace sict {
 		Station& operator+=(CustomerOrder&& order);
 		bool pop(CustomerOrder& ready);
 		void validate(std::ostream& os) const;
+		ItemSet& getItems() { return items; }
 
-		//Station(const Station&) = delete;
-		//Station(Station&&) = delete;
-		//Station& operator=(const Station&) = delete;
-		//Station& operator=(Station&&) = delete;
+		Station(const Station&) = delete;
+		Station(Station&&) = delete;
+		Station& operator=(const Station&) = delete;
+		Station& operator=(Station&&) = delete;
 	};
 }
 

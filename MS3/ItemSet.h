@@ -40,9 +40,9 @@ namespace sict {
 		void display(std::ostream& os, bool full) const;
 		ItemSet(ItemSet&& src) noexcept;
 
-		//ItemSet& operator=(ItemSet&&) = delete;
-		//ItemSet& operator=(const ItemSet&) = delete;
-		//ItemSet(const ItemSet&) = delete;
+		ItemSet& operator=(ItemSet&&) = delete;
+		ItemSet& operator=(const ItemSet&) = delete;
+		ItemSet(const ItemSet&) = delete;
 	};
 }
 

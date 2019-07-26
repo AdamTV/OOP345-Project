@@ -18,6 +18,7 @@
   ============================================================================
  */
 
+#include <string>
 #include "Utilities.h"
 
 namespace sict {
@@ -34,8 +35,16 @@ namespace sict {
 	const std::string Utilities::extractToken(const std::string& str, size_t& next_pos)
 	{
 		std::string tmp = str.substr(next_pos);
-		std::string token = tmp.substr(0, tmp.find(delimiter));
-		next_pos += tmp.find(delimiter) + 1;
+		size_t nextPos = tmp.find(delimiter);
+
+		std::string token = tmp.substr(0, nextPos);
+		if (nextPos != std::string::npos) {
+			nextPos++;
+			next_pos += nextPos;
+		}
+		else {
+			next_pos = nextPos;
+		}
 
 		return token;
 	}

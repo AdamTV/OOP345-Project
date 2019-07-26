@@ -39,26 +39,32 @@ namespace sict {
 	//
 	CustomerOrder::CustomerOrder(const std::string& str)
 	{
-		std::vector<std::string> items;
-		size_t pos = 0;
-		custName = util.extractToken(str, pos);
-		if (custName.length() > util.getFieldWidth())
-			util.setFieldWidth(custName.length());
-		prodName = util.extractToken(str, pos);
-		int numItems = std::count(str.begin(), str.end(), util.getDelimiter()) - 1;
-		if (numItems > 0) {
-			for (auto i = 0; i < numItems; i++)
-				items.push_back(util.extractToken(str, pos));
+		if (str.length() > 0) {
+			std::vector<std::string> items;
+			size_t pos = 0;
+			custName = util.extractToken(str, pos);
+			if (custName.length() > util.getFieldWidth())
+				util.setFieldWidth(custName.length());
+			prodName = util.extractToken(str, pos);
+			int numItems = std::count(str.begin(), str.end(), util.getDelimiter()) - 1;
+			if (numItems > 0) {
+				for (auto i = 0; i < numItems; i++)
+					items.push_back(util.extractToken(str, pos));
+			}
+			else {
+				throw "no items requested to be added";
+			}
+
+			currentItems = new ItemInfo[numItems];
+			currentNumItems = numItems;
+			for (auto i = 0; i < numItems; i++) {
+				currentItems[i].itemNumber = 0;
+				currentItems[i].itemName = items[i];
+				currentItems[i].fullfilled = false;
+			}
 		}
 		else {
-			throw "no items requested to be added";
-		}
-
-		currentItems = new ItemInfo[numItems];
-		currentNumItems = numItems;
-		for (auto i = 0; i < numItems; i++) {
-			currentItems[i].itemName = items[i];
-			currentItems[i].fullfilled = false;
+			currentItems = nullptr;
 		}
 	}
 
@@ -158,7 +164,7 @@ namespace sict {
 	//
 	void CustomerOrder::display(std::ostream& os, bool showDetail)
 	{
-		auto FW = std::setw(util.getFieldWidth() + 1);
+		auto FW = std::setw((long long int)util.getFieldWidth() + 1);
 		if (!showDetail) {
 			os << FW << custName << '[' << prodName << "]\n";
 			for (unsigned int i = 0; i < currentNumItems; i++) {
@@ -168,8 +174,8 @@ namespace sict {
 		else {
 			os << FW << custName << '[' << prodName << "]\n";
 			for (unsigned int i = 0; i < currentNumItems; i++) {
-				os << FW << " " << '[' << currentItems[i].itemNumber << "] " 
-					<< currentItems[i].itemName << '-' << (currentItems[i].fullfilled ? "Filled" : "Not Filled");
+				os << FW << " " << '[' << currentItems[i].itemNumber << "] "
+					<< currentItems[i].itemName << " - " << (currentItems[i].fullfilled ? "FILLED\n" : "MISSING\n");
 			}
 		}
 	}
