@@ -26,7 +26,7 @@ namespace sict {
 	private:
 		std::vector<Station*> addresses;
 		std::vector<size_t> indexes;
-		std::vector<CustomerOrder> orders;
+		std::vector<CustomerOrder> orders, ordersC, ordersI;
 		size_t start, end, size;
 	public:
 		LineManager(std::vector<Station*>& adr,std::vector<size_t>&

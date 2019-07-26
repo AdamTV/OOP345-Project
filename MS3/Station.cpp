@@ -24,7 +24,7 @@
 namespace sict {
 	Station::Station(const std::string& str) : items(ItemSet(str))
 	{
-		
+		name = getName();
 	}
 	void Station::display(std::ostream& os) const
 	{
@@ -42,10 +42,12 @@ namespace sict {
 	bool Station::hasAnOrderToRelease() const
 	{
 		bool has = false;
-
-		if (items.getQuantity() > 1)
-			has = true;
-
+		if(!custOrders.empty()) {
+			if (items.getQuantity() > 1)
+				has = true;
+			else
+				has = custOrders.front().isItemFilled(getName());
+		}
 		return has;
 	}
 	Station& Station::operator--()
@@ -55,7 +57,7 @@ namespace sict {
 	}
 	Station& Station::operator+=(CustomerOrder&& order)
 	{
-		custOrders.push(order);
+		custOrders.push(std::move(order));
 		return *this;
 	}
 	bool Station::pop(CustomerOrder& ready)

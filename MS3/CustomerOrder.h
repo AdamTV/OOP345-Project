@@ -49,9 +49,8 @@ namespace sict {
 		void display(std::ostream& os, bool showDetail = false);
 		ItemInfo lastItem() { return currentItems[currentNumItems - 1]; }
 		std::string& getItemName() { return currentItems->itemName; }
-		CustomerOrder(const CustomerOrder&) {
-		custName = std::string();
-		};
+
+		CustomerOrder(const CustomerOrder&) = delete;
 		CustomerOrder& operator=(const CustomerOrder&) = delete;
 	};
 }
