@@ -38,16 +38,16 @@ namespace sict {
 	}
 	void LineManager::display(std::ostream& os) const
 	{
-		auto display = [&](bool filled) {
+		auto display = [&](std::vector<CustomerOrder>&& orders) {
 			for (auto& i : orders) {
-				if (filled ? i.isFilled() : !i.isFilled())
+				//if (filled ? i.isFilled() : !i.isFilled())
 					const_cast<CustomerOrder&&>(i).display(os, true);
 			}
 		};
 		os << "COMPLETED ORDERS\n";
-		display(true);
+		display((std::vector<CustomerOrder>&&)(ordersC));
 		os << "INCOMPLETE ORDERS\n";
-		display(false);
+		display((std::vector<CustomerOrder>&&)ordersI);
 	}
 	bool LineManager::run(std::ostream& os)
 	{
@@ -59,7 +59,7 @@ namespace sict {
 			Station*& theAddress = addresses.back();
 
 			theOrder.fillItem(theAddress->getItems(), os);
-			
+
 			os << "--> " << theOrder.getNameProduct() << " moved from " <<
 				theAddress->getItems().getName() << " to " << theOrder.getItemName();
 		}*/
@@ -75,45 +75,38 @@ namespace sict {
 			orders.pop_back();
 		}
 
-		try
+		for (size_t i = 0; i != indexes.size(); ++i)
+			addresses[i]->fill(os);
+
+		for (size_t i = 0; i < addresses.size(); ++i)
 		{
-			for (size_t i = 0; i != indexes.size(); ++i)
-				addresses[i]->fill(os);
+			bool hasOrderForRelease = addresses[i]->hasAnOrderToRelease();
+			bool isTheLastStation = indexes[i] == end;
 
-			for (size_t i = 0; i < addresses.size(); ++i)
+			if (hasOrderForRelease && isTheLastStation)
 			{
-				bool hasOrderForRelease = addresses[i]->hasAnOrderToRelease();
-				bool isTheLastStation = indexes[i] == end;
+				addresses[i]->pop(temp);
 
-				if (hasOrderForRelease && isTheLastStation)
+				if (temp.isFilled())
 				{
-					addresses[i]->pop(temp);
-
-					if (temp.isFilled())
-					{
-						os << " --> " << temp.getNameProduct() << " moved from " << addresses[i]->getName() << " to Completed Set" << std::endl;
-						orders.push_back(std::move(temp));
-						size--;
-					}
-					else
-					{
-						os << " --> " << temp.getNameProduct() << " moved from " << addresses[i]->getName() << " to Incompleted Set" << std::endl;
-						orders.push_back(std::move(temp));
-						size--;
-					}
+					os << " --> " << temp.getNameProduct() << " moved from " << addresses[i]->getName() << " to Completed Set" << std::endl;
+					ordersC.push_back(std::move(temp));
+					size--;
 				}
-				if (hasOrderForRelease && !isTheLastStation)
+				else
 				{
-					addresses[i]->pop(temp);
-					os << " --> " << temp.getNameProduct() << " moved from " << addresses[i]->getName() << " to " << addresses[indexes[i]]->getName() << std::endl;
-
-					*addresses[indexes[i]] += std::move(temp);
+					os << " --> " << temp.getNameProduct() << " moved from " << addresses[i]->getName() << " to Incompleted Set" << std::endl;
+					ordersI.push_back(std::move(temp));
+					size--;
 				}
 			}
-		}
-		catch (const std::exception& e)
-		{
-			e.what();
+			if (hasOrderForRelease && !isTheLastStation)
+			{
+				addresses[i]->pop(temp);
+				os << " --> " << temp.getNameProduct() << " moved from " << addresses[i]->getName() << " to " << addresses[indexes[i]]->getName() << std::endl;
+
+				*addresses[indexes[i]] += std::move(temp);
+			}
 		}
 
 		if (size == 0)

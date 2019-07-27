@@ -106,9 +106,9 @@ namespace sict {
 	//
 	void CustomerOrder::fillItem(ItemSet& item, std::ostream& os)
 	{
-		if (item.getQuantity() != 0) {
-			for (unsigned int i = 0; i < currentNumItems; i++) {
-				if (currentItems[i].itemName == item.getName()) {
+		for (unsigned int i = 0; i < currentNumItems; i++) {
+			if (currentItems[i].itemName == item.getName()) {
+				if (item.getQuantity() != 0) {
 					if (!currentItems[i].fullfilled) {
 						currentItems[i].itemNumber = item.getSerialNumber();
 						currentItems[i].fullfilled = true;
@@ -121,11 +121,11 @@ namespace sict {
 							<< item.getName() << "][" << currentItems[i].itemNumber << "] already filled\n";
 					}
 				}
+				else {
+					os << " Unable to fill " << getNameProduct() << "["
+						<< item.getName() << "][" << item.getSerialNumber() << "] out of stock\n";
+				}
 			}
-		}
-		else {
-			os << " Unable to fill " << getNameProduct() << "["
-				<< item.getName() << "][" << item.getSerialNumber() << "] out of stock\n";
 		}
 	}
 

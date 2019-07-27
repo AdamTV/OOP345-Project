@@ -43,7 +43,7 @@ namespace sict {
 	{
 		bool has = false;
 		if(!custOrders.empty()) {
-			if (items.getQuantity() > 1)
+			if (items.getQuantity() < 1)
 				has = true;
 			else
 				has = custOrders.front().isItemFilled(getName());
