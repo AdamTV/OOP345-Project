@@ -7,7 +7,7 @@
  Course Code   : OOP345
  Section       : SCC
  Date Created  : 2019-07-16
- Last Modified : 2019-07-25
+ Last Modified : 2019-07-29
  Project	   : Milestone 3
  ============================================================================
  */
@@ -23,6 +23,9 @@
 #include "CustomerOrder.h"
 
 namespace sict {
+
+	// custom constructor to set data member values
+	//
 	LineManager::LineManager(std::vector<Station*>& adrs, std::vector<size_t>&
 		idx, std::vector<CustomerOrder>& ords, size_t& strt, std::ostream& os) :
 		addresses(adrs),
@@ -36,12 +39,14 @@ namespace sict {
 		end = indexes.size();
 		size = orders.size();
 	}
+
+	// query to display status of all orders to any ostream
+	//
 	void LineManager::display(std::ostream& os) const
 	{
 		auto display = [&](std::vector<CustomerOrder>&& orders) {
 			for (auto& i : orders) {
-				//if (filled ? i.isFilled() : !i.isFilled())
-					const_cast<CustomerOrder&&>(i).display(os, true);
+				i.display(os, true);
 			}
 		};
 		os << "COMPLETED ORDERS\n";
@@ -49,71 +54,45 @@ namespace sict {
 		os << "INCOMPLETE ORDERS\n";
 		display((std::vector<CustomerOrder>&&)ordersI);
 	}
+
+	// modifier to process customer orders along assembly line
+	//
 	bool LineManager::run(std::ostream& os)
 	{
-		//bool processed = true;
+		bool processed = false;
+		CustomerOrder tmp;
 
-	/*	if (!orders.empty()) {
-			CustomerOrder&& theOrder = std::move(orders.back());
-
-			Station*& theAddress = addresses.back();
-
-			theOrder.fillItem(theAddress->getItems(), os);
-
-			os << "--> " << theOrder.getNameProduct() << " moved from " <<
-				theAddress->getItems().getName() << " to " << theOrder.getItemName();
-		}*/
-
-		//return processed;
-
-		bool done = false;
-		CustomerOrder temp;
-
-		if (!orders.empty())
-		{
+		if (!orders.empty()) {
 			*addresses[start] += std::move(orders.back());
 			orders.pop_back();
 		}
 
-		for (size_t i = 0; i != indexes.size(); ++i)
-			addresses[i]->fill(os);
+		for (auto i : addresses)
+			i->fill(os);
 
-		for (size_t i = 0; i < addresses.size(); ++i)
-		{
-			bool hasOrderForRelease = addresses[i]->hasAnOrderToRelease();
-			bool isTheLastStation = indexes[i] == end;
-
-			if (hasOrderForRelease && isTheLastStation)
-			{
-				addresses[i]->pop(temp);
-
-				if (temp.isFilled())
-				{
-					os << " --> " << temp.getNameProduct() << " moved from " << addresses[i]->getName() << " to Completed Set" << std::endl;
-					ordersC.push_back(std::move(temp));
+		for (size_t i = 0; i < addresses.size(); ++i) {
+			if (addresses[i]->hasAnOrderToRelease() && indexes[i] == end) {
+				addresses[i]->pop(tmp);
+				os << " --> " << tmp.getNameProduct() << " moved from " << addresses[i]->getName() << (tmp.isFilled() ? " to Completed Set\n" : " to Incompleted Set\n");
+				if (tmp.isFilled()) {
+					ordersC.push_back(std::move(tmp));
 					size--;
 				}
-				else
-				{
-					os << " --> " << temp.getNameProduct() << " moved from " << addresses[i]->getName() << " to Incompleted Set" << std::endl;
-					ordersI.push_back(std::move(temp));
+				else {
+					ordersI.push_back(std::move(tmp));
 					size--;
 				}
 			}
-			if (hasOrderForRelease && !isTheLastStation)
-			{
-				addresses[i]->pop(temp);
-				os << " --> " << temp.getNameProduct() << " moved from " << addresses[i]->getName() << " to " << addresses[indexes[i]]->getName() << std::endl;
-
-				*addresses[indexes[i]] += std::move(temp);
+			else if (addresses[i]->hasAnOrderToRelease()) {
+				addresses[i]->pop(tmp);
+				os << " --> " << tmp.getNameProduct() << " moved from " << addresses[i]->getName() << " to " << addresses[indexes[i]]->getName() << std::endl;
+				*addresses[indexes[i]] += std::move(tmp);
 			}
 		}
 
 		if (size == 0)
-			done = true;
-		else
-			done = false;
+			processed = !processed;
 
-		return done;
+		return processed;
 	}
 }
