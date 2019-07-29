@@ -51,7 +51,7 @@ namespace sict {
 		};
 		os << "COMPLETED ORDERS\n";
 		display((std::vector<CustomerOrder>&&)(ordersC));
-		os << "INCOMPLETE ORDERS\n";
+		os << "\nINCOMPLETE ORDERS\n";
 		display((std::vector<CustomerOrder>&&)ordersI);
 	}
 
