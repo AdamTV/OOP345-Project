@@ -1,3 +1,5 @@
+#ifndef SICT_LINE_MANAGER_H
+#define SICT_LINE_MANAGER_H
 /*
  ============================================================================
  Name          : LineManager.h
@@ -35,3 +37,4 @@ namespace sict {
 		bool run(std::ostream& os);
 	};
 }
+#endif // !SICT_LINE_MANAGER_H
